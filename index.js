@@ -1,6 +1,5 @@
 const express = require('express')
 const http = require('http')
-const socketio = require('socket.io')
 const cors = require('cors')
 
 const PORT = process.env.PORT || 5000
@@ -8,7 +7,13 @@ const router = require('./router')
 
 const app = express()
 const server = http.createServer(app);
-const io = socketio(server);
+
+
+const options={
+ cors:true,
+ origins:["http://127.0.0.1:5347"],
+}
+const io = require('socket.io')(server, options)
 
 app.use(cors());
 app.use(router)
